@@ -1,0 +1,139 @@
+NON-LIVE fixture evidence: real fm-pr-merge.sh with stubbed glab responses from tests/fm-pr-merge.test.sh. No real MRs were merged.
+
+CASE gitlab-merged-result
+--- stdout ---
+armed: state/task-x1.check.sh
+
+--- stderr ---
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair missing watcher supervision according to the session-start block for this harness; do not use shell &.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+verified: https://gitlab.example/group/subgroup/project/-/merge_requests/7 is open and mergeable, with a successful merged-result pipeline at 1439d08a0b20e3750b3c39b1af409280dc12473b validating source head aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+--- glab.log ---
+GITLAB_HOST=gitlab.example mr view 7 -R https://gitlab.example/group/subgroup/project -F json
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/pipelines/2932234686 --hostname gitlab.example
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/repository/commits/1439d08a0b20e3750b3c39b1af409280dc12473b --hostname gitlab.example
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/repository/branches/main --hostname gitlab.example
+GITLAB_HOST=gitlab.example mr view 7 -R https://gitlab.example/group/subgroup/project -F json
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/repository/branches/main --hostname gitlab.example
+GITLAB_HOST=gitlab.example mr merge 7 -R https://gitlab.example/group/subgroup/project --sha aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa --yes
+GITLAB_HOST=gitlab.example mr view 7 -R https://gitlab.example/group/subgroup/project -F json
+
+
+CASE gitlab-result-fork
+--- stdout ---
+armed: state/task-x1.check.sh
+
+--- stderr ---
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair missing watcher supervision according to the session-start block for this harness; do not use shell &.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+verified: https://gitlab.example/group/subgroup/project/-/merge_requests/7 is open and mergeable, with a successful merged-result pipeline at 1439d08a0b20e3750b3c39b1af409280dc12473b validating source head aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+--- glab.log ---
+GITLAB_HOST=gitlab.example mr view 7 -R https://gitlab.example/group/subgroup/project -F json
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/pipelines/2932234686 --hostname gitlab.example
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/repository/commits/1439d08a0b20e3750b3c39b1af409280dc12473b --hostname gitlab.example
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/repository/branches/release%2Fnext --hostname gitlab.example
+GITLAB_HOST=gitlab.example mr view 7 -R https://gitlab.example/group/subgroup/project -F json
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/repository/branches/release%2Fnext --hostname gitlab.example
+GITLAB_HOST=gitlab.example mr merge 7 -R https://gitlab.example/group/subgroup/project --sha aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa --yes
+GITLAB_HOST=gitlab.example mr view 7 -R https://gitlab.example/group/subgroup/project -F json
+
+
+CASE gitlab-result-wrong-mr
+--- stdout ---
+armed: state/task-x1.check.sh
+
+--- stderr ---
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair missing watcher supervision according to the session-start block for this harness; do not use shell &.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+error: refusing to merge https://gitlab.example/group/subgroup/project/-/merge_requests/7
+  - the head pipeline ran at "1439d08a0b20e3750b3c39b1af409280dc12473b", not at the current head aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa; current merged-result integration could not be verified
+
+--- glab.log ---
+GITLAB_HOST=gitlab.example mr view 7 -R https://gitlab.example/group/subgroup/project -F json
+
+
+CASE gitlab-result-stale-target
+--- stdout ---
+armed: state/task-x1.check.sh
+
+--- stderr ---
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair missing watcher supervision according to the session-start block for this harness; do not use shell &.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+error: refusing to merge https://gitlab.example/group/subgroup/project/-/merge_requests/7
+  - the head pipeline ran at "1439d08a0b20e3750b3c39b1af409280dc12473b", not at the current head aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa; current merged-result integration could not be verified
+
+--- glab.log ---
+GITLAB_HOST=gitlab.example mr view 7 -R https://gitlab.example/group/subgroup/project -F json
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/pipelines/2932234686 --hostname gitlab.example
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/repository/commits/1439d08a0b20e3750b3c39b1af409280dc12473b --hostname gitlab.example
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/repository/branches/main --hostname gitlab.example
+
+
+CASE gitlab-result-final-target-change
+--- stdout ---
+armed: state/task-x1.check.sh
+
+--- stderr ---
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair missing watcher supervision according to the session-start block for this harness; do not use shell &.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+verified: https://gitlab.example/group/subgroup/project/-/merge_requests/7 is open and mergeable, with a successful merged-result pipeline at 1439d08a0b20e3750b3c39b1af409280dc12473b validating source head aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+error: merged-result MR or target changed or could not be re-read before merging; retry with fresh integration evidence
+
+--- glab.log ---
+GITLAB_HOST=gitlab.example mr view 7 -R https://gitlab.example/group/subgroup/project -F json
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/pipelines/2932234686 --hostname gitlab.example
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/repository/commits/1439d08a0b20e3750b3c39b1af409280dc12473b --hostname gitlab.example
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/repository/branches/main --hostname gitlab.example
+GITLAB_HOST=gitlab.example mr view 7 -R https://gitlab.example/group/subgroup/project -F json
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/repository/branches/main --hostname gitlab.example
+
+
+CASE gitlab-result-final-source-change
+--- stdout ---
+armed: state/task-x1.check.sh
+
+--- stderr ---
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair missing watcher supervision according to the session-start block for this harness; do not use shell &.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+verified: https://gitlab.example/group/subgroup/project/-/merge_requests/7 is open and mergeable, with a successful merged-result pipeline at 1439d08a0b20e3750b3c39b1af409280dc12473b validating source head aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+error: merged-result MR or target changed or could not be re-read before merging; retry with fresh integration evidence
+
+--- glab.log ---
+GITLAB_HOST=gitlab.example mr view 7 -R https://gitlab.example/group/subgroup/project -F json
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/pipelines/2932234686 --hostname gitlab.example
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/repository/commits/1439d08a0b20e3750b3c39b1af409280dc12473b --hostname gitlab.example
+GITLAB_HOST=gitlab.example api projects/group%2Fsubgroup%2Fproject/repository/branches/main --hostname gitlab.example
+GITLAB_HOST=gitlab.example mr view 7 -R https://gitlab.example/group/subgroup/project -F json
+

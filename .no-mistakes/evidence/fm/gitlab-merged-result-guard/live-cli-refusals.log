@@ -1,0 +1,18 @@
+Real CLI boundary checks; no mocked tools or forge calls. Disposable empty FM_HOME.
+$ bin/fm-pr-merge.sh lab-merge https://gitlab.example/disposable/project/-/merge_requests/7 -- --sha 1439d08a0b20e3750b3c39b1af409280dc12473b
+error: extra merge arguments must not override the head commit
+
+exit=1
+$ bin/fm-pr-merge.sh lab-merge https://gitlab.example/disposable/project/-/merge_requests/7 -- --sha=1439d08a0b20e3750b3c39b1af409280dc12473b
+error: extra merge arguments must not override the head commit
+
+exit=1
+$ bin/fm-pr-merge.sh lab-merge https://gitlab.example/disposable/project/-/merge_requests/7 -- --match-head-commit 1439d08a0b20e3750b3c39b1af409280dc12473b
+error: extra merge arguments must not override the head commit
+
+exit=1
+$ bin/fm-pr-merge.sh lab-merge https://gitlab.example/disposable/project/-/merge_requests/7 -- --match-head-commit=1439d08a0b20e3750b3c39b1af409280dc12473b
+error: extra merge arguments must not override the head commit
+
+exit=1
+Disposable home unchanged after all four refusals.

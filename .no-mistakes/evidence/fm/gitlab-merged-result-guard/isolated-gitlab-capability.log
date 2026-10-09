@@ -1,0 +1,5 @@
+Real glab in disposable configuration; operator configuration and credentials excluded.
+$ glab api version --hostname gitlab.com
+{"message":"401 Unauthorized"}glab: 401 Unauthorized (HTTP 401)
+
+exit=1

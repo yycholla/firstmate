@@ -1,0 +1,12 @@
+Baseline script with the same complete valid merged-result fixture (stubbed glab; not live):
+armed: state/task-x1.check.sh
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+●  WATCHER DOWN - SUPERVISION IS OFF
+●  1 task(s) in flight, but no watcher has a fresh beacon (last beat: never, grace 300s).
+●  Trust the emitted supervision protocol for this harness; do not use shell & for watcher repair.
+●  This is a supervision warning only; the guarded operation WILL still run.
+●  repair missing watcher supervision according to the session-start block for this harness; do not use shell &.
+●━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+error: refusing to merge https://gitlab.example/group/subgroup/project/-/merge_requests/7
+  - the head pipeline ran at "1439d08a0b20e3750b3c39b1af409280dc12473b", not at the current head aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+exit=1
